@@ -26,8 +26,11 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: redis-primary
-        image: corybuecker/redis:3.2
+        image: anubhavmishra/redis:3.2
         imagePullPolicy: Always
+        env:
+        - name: REDIS_PASSWORD
+          value: ""
         ports:
         - containerPort: 6379
           name: redis-primary

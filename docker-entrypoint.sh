@@ -5,6 +5,21 @@ set -x
 
 echo "bind 0.0.0.0" > /etc/redis.conf
 echo "protected-mode no" >> /etc/redis.conf
+if [ -z "$SENTINEL" ]; then
+	RENAME_CONFIG=$(echo "kuberdbs" | sha1sum | awk '{ print $1 }')
+	echo "rename-command CONFIG $RENAME_CONFIG" >> /etc/redis.conf
+	echo "rename-command FLUSHDB \"\"" >> /etc/redis.conf
+	echo "rename-command FLUSHALL \"\"" >> /etc/redis.conf
+	echo "rename-command SHUTDOWN \"\"" >> /etc/redis.conf
+	echo "rename-command SLAVEOF \"\"" >> /etc/redis.conf
+	echo "rename-command DEBUG \"\"" >> /etc/redis.conf
+	echo "rename-command OBJECT \"\"" >> /etc/redis.conf
+	echo "rename-command MOVE \"\"" >> /etc/redis.conf
+fi
+if [ ! -z "$REDIS_PASSWORD" ]; then
+	echo "requirepass $REDIS_PASSWORD" >> /etc/redis.conf
+fi
+echo "databases 10000" >> /etc/redis.conf
 
 set -- $(which redis-server) /etc/redis.conf
 

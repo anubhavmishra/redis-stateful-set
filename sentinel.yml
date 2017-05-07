@@ -26,11 +26,13 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: redis-sentinel
-        image: corybuecker/redis:3.2
+        image: anubhavmishra/redis:3.2
         imagePullPolicy: Always
         env:
         - name: SENTINEL
           value: redis-primary
+        - name: REDIS_PASSWORD
+          value: ""
         ports:
         - containerPort: 26379
           name: redis-sentinel

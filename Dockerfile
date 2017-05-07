@@ -1,4 +1,4 @@
 FROM library/redis:3.2
-MAINTAINER Cory Buecker <email@corybuecker.com>
+MAINTAINER Anubhav Mishra <anubhavmishra@me.com>
 
 COPY ["docker-entrypoint.sh", "/usr/local/bin/"]
