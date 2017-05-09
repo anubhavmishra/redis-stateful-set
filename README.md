@@ -13,5 +13,5 @@ Redis Version: **3.2**
     docker build -t <tagname> .
 
 ## Running the cluster
-
+    kubectl apply -f namespace.yaml
     kubectl create -f primary.yml -f secondary.yml -f sentinel.yml

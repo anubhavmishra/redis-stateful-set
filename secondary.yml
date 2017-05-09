@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-secondary
+  namespace: redis
   labels:
     app: redis-secondary
 spec:
@@ -15,6 +16,7 @@ apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: redis-secondary
+  namespace: redis
 spec:
   serviceName: redis-secondary
   replicas: 2
