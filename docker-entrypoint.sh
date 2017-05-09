@@ -23,7 +23,9 @@ echo "databases 10000" >> /etc/redis.conf
 set -- $(which redis-server) /etc/redis.conf
 
 if [ -v REPLICA ] && [ ! -v SENTINEL ]; then
-	echo "masterauth $REDIS_PASSWORD" >> /etc/redis.conf
+	if [ ! -z "$REDIS_PASSWORD" ]; then
+		echo "masterauth $REDIS_PASSWORD" >> /etc/redis.conf
+	fi
   set -- $@ --slaveof $(redis-cli -h redis-sentinel -p 26379 --raw sentinel get-master-addr-by-name primary | sed -n 1p) 6379
 fi
 
